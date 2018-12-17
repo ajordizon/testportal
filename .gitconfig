@@ -14,3 +14,6 @@
         hist = log --graph --oneline --decorate
         st = status
 
+[user]
+	email = a.j.van.der.zon@gmail.com
+	name = ajordizon
