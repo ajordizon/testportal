@@ -59,6 +59,26 @@ class Comment(db.Model):
     commenter_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     commenter = db.relationship('User', foreign_keys=commenter_id)
 
+class Persoongegevens(db.Model):
+
+    __tablename__ = "persoongegevens"
+
+    id = db.Column(db.Integer, primary_key=True)
+    voornaam = db.Column(db.String(40))
+    tussenvoegsel = db.Column(db.String(40))
+    achternaam = db.Column(db.String(40))
+    persoon_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    telefoonnr = db.Column(db.String(20))
+    geboortedatum = db.Column(db.Date)
+    adres = db.Column(db.String(40))
+    postcode = db.Column(db.String(6))
+    provincie = db.Column(db.String(40))
+    land = db.Column(db.String(40))
+    emailadres = db.Column(db.String(40))
+    bsn = db.Column(db.String(40))
+    brutosalaris = db.Column(db.Numeric(50))
+    persoon = db.relationship('User', foreign_keys=persoon_id)
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -75,17 +95,17 @@ def index():
 
 
 
-@app.route("/login/", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
-        return render_template("login_page.html", error=False)
+        return render_template("login.html", error=False)
 
     user = load_user(request.form["username"])
     if user is None:
-        return render_template("login_page.html", error=True)
+        return render_template("login.html", error=True)
 
     if not user.check_password(request.form["password"]):
-        return render_template("login_page.html", error=True)
+        return render_template("login.html", error=True)
 
     login_user(user)
     return redirect(url_for('index'))
