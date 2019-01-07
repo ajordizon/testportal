@@ -13,12 +13,14 @@
       <div class="nav-scroller py-1 mb-2 m-4">
         <nav class="nav d-flex justify-content-left">
           <a class="p-2 text-dark" href="/">Home</a>
+          {% if session['logged_in'] %}
           <a class="p-2 text-dark" href="mijnprofiel">My profile</a>
           <a class="p-2 text-dark" href="investment">Investments</a>
+          {% endif %}
           {% if session['logged_in'] %}
           <a class="btn btn-outline-secondary ml-auto p-2" href="/logout/">Sign out</a>
           {% else %}
-          <a class="btn btn-outline-secondary ml-auto p-2" href="/login/">Log in</a>
+          <a class="btn btn-outline-secondary ml-auto p-2" href="/login">Log in</a>
           {% endif %}
         </nav>
       </div>

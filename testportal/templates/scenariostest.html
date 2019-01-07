@@ -19,7 +19,6 @@
             background-repeat:no-repeat;
         }
 
-
 /* TEKST */
         .header{
             color: #EA650D;
@@ -275,9 +274,9 @@
                     <div class="tab">
                       <button class="tablinks" onclick="openCity(event, 'scenarios')">Scenarios</button>
                       <button class="tablinks" onclick="openCity(event, 'totalIncome')">Total Income Graph</button>
-                      <button class="tablinks" onclick="openCity(event, 'netGraph')">Net Graph</button>
+                      <button class="tablinks" onclick="openCity(event, 'netGraph'),myReturn()">Net Graph</button>
                     </div>
-                <div id="scenarios" class="tabcontent scenarios"><br>
+                <div id="scenarios" class="scenarios">
                     <button class="button4"id="btnData"><span class="glyphicon glyphicon-plus-sign" style="color:#EA650D"></span> Add scenario</button>
                     <div class="items"></div>
                      <table id="example" cellspacing="0px" cellpadding="5px" text-align="center">
@@ -286,11 +285,11 @@
                     <tbody></tbody>
                     </table></div>
 
-                    <div id="totalIncome" class="tabcontent totalIncome">
-                    totalincome
+                    <div id="totalIncome" class="totalIncome">
+             hoi
                     </div>
-                    <div id="netGraph" class="tabcontent netGraph">
-                    net graph
+                    <div id="netGraph" class="netGraph">
+                    Netgraph
                     </div>
                 </div>
               </div>
@@ -298,7 +297,8 @@
             <div class="col-md-4 padding-0">
                 <div class="card flex- md-row mb-4 shadow-sm h-md-250 column-blocks">
                 <div class="card-body d-flex flex-column align-items-start ">
-                                    <div class="scenarios">test tekst Scenarios</div>
+
+                    <div class="scenarios">test tekst Scenarios</div>
                     <div class="totalIncome">test tekst TiG</div>
                     <div class="netGraph">test tekst NetG</div>
                 </div>
@@ -377,32 +377,41 @@
     openCity(event, "scenarios")
     function openCity(evt, cityName) {
       var i, tabcontent, tablinks;
-      var text = "";
+      tabcontent = document.getElementsByClassName("tabcontent");
+      var scenarios = "scenarios" ;
+      var text = "hoooi" ;
+    $(".scenarios").show();
+            $(".totalIncome").hide();
+            $(".netGraph").hide();
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
 
-      $(".scenarios").show();
-                $(".totalIncome").hide();
-                $(".netGraph").hide();
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
 
       var cname = cityName;
 
-        if(cname == "scenarios"){
-              $(".scenarios").show();
-                $(".totalIncome").hide();
-                $(".netGraph").hide();
-          }
-          else if(cname == "totalIncome"){
-              $(".scenarios").hide();
-                $(".totalIncome").show();
-                $(".netGraph").hide();
-          }
-          else if(cname == "netGraph"){
-              $(".scenarios").hide();
-                $(".totalIncome").hide();
-                $(".netGraph").show();
-          }
-        }
-
-
+      if(cname == "scenarios"){
+          $(".scenarios").show();
+            $(".totalIncome").hide();
+            $(".netGraph").hide();
+      }
+      else if(cname == "totalIncome"){
+          $(".scenarios").hide();
+            $(".totalIncome").show();
+            $(".netGraph").hide();
+      }
+      else if(cname == "netGraph"){
+          $(".scenarios").hide();
+            $(".totalIncome").hide();
+            $(".netGraph").show();
+      }
+    }
     </script>
     <script>$(function(){
 
@@ -411,6 +420,13 @@
         })
 
         });
+</script>
+<script>
+function netGraph() {
+    $(".netGraph").show();
+    $(".scenarios").hide();
+    $(".totalIncome").hide();
+}
 </script>
 <!--- SCRIPT CHARTS -->
     <script>

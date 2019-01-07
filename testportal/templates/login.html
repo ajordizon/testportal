@@ -1,21 +1,105 @@
 {% extends 'navbarlayout.html' %}
 {% block content %}
-<h2>{{ title }}Login</h2>
+<style>
+        .bgimg{
+            background-image: url("../static/pageheader-default.jpg");
+            background-position: 0% 24%;
+            height:300px;
+            background-size:cover;
+            background-size: 100%;
+            background-repeat:no-repeat;
+        }
+        .Header{
+            color: #EA650D;
+            font-weight:bold;
+            font-size:24px;
+        }
+        .textblok{
+            font-size:14px;
+        }
+
+        /* TABLES */
+
+        table#example {
+        border-collapse: collapse;
+        width: 100%;
+        }
+        #example tr {
+        background-color: #eee;
+        border-top: 1px solid #fff;
+        }
+        #example tr:hover {
+        background-color: #ccc;
+        }
+        #example th {
+        background-color: #fff;
+        font-size:14px;
+        font-weight: normal;
+        }
+        #example th, #example td {
+        padding: 3px 5px;
+        }
+        #example td:hover {
+        cursor: pointer;
+        }
+        #example .active{
+           background-color: #ccc;
+        }
+    /* BUTTONS */
+            .button {
+            background-color: #EA650D; /* Orange */
+            border: none;
+            border-radius: 4px;
+            color: white;
+            padding: 14px;
+            text-align: left;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 8px;
+            cursor: pointer;
+            width: 100%;
+            }
+            .button2{position:center;margin:auto;margin-bottom:0%;}
+            .button3{ width:auto;padding:6px;text-align:center;}
+
+</style>
+
+{% block title %}Inloggen{% endblock %}
+
 <h3>{{ message }}</h3>
+    <div class="col">
+     <div class="card-deck mb-4" style="height:300px;">
+        <div class="card text-dark rounded" style="background-color: #f1edeb;border:0px;">
+            <div class="card-body">
+            <h3 class=" Header">Log in on mijn.nn</h3>
+              <form action="" method="post">
+                <p class="card-text textblok">Gebruikersnaam</p>
+                <input type="text" class="form-control" placeholder="Gebruikersnaam" name="username" value="{{
+                  request.form.username }}">
+                 <br><p class="card-text textblok">Wachtwoord</p>
+                 <input class="form-control" type="password" placeholder="Wachtwoord" name="password" value="{{
+                  request.form.password }}">
+                <br>
+                <input class="button button3" type="submit" value="Inloggen">
+              </form>
+              {% if error %}
+                <p class="error"><strong>Error:</strong> {{ error }}
+            <p class="card-text textblok">Tekst</p>
+            {% endif %}
+            </div>
+        </div>
 
-    <div class="container">
-      <h1>Please login</h1>
-      <br>
-      <form action="" method="post">
-        <input type="text" placeholder="Username" name="username" value="{{
-          request.form.username }}">
-         <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-        <input class="btn btn-default" type="submit" value="Login">
-      </form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
+        <div class="card text-dark rounded" style="background-color: #f1edeb;border:0px;">
+            <div class="card-body">
+            <h3 class=" Header">Log in op uw NN Zorgverzekering </h3>
+            <img width="57" height="56" style="float: right;margin-left:10px; border: none;" alt="" src="https://www.digid.nl/fileadmin/site/digid-V3/images/logos/logo.png">
+            <p class="card-text textblok">Uw zorgkosten declareren en inzien.</p>
+            </div>
+            <input class="button button3" style="width:300px;"href="#" value="Inloggen Zorgverzekering">
+        </div>
     </div>
+    </div>
+    <div class="mb-4"></div>
 
-{% endif %}
 {% endblock %}

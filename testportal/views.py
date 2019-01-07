@@ -161,6 +161,10 @@ def profilebuildup():
 def scenarios():
     return render_template("scenarios.html")
 
+@app.route("/scenariostest")
+def scenariostest():
+    return render_template("scenariostest.html")
+
 @app.route("/investment")
 def investment():
     if not current_user.is_authenticated:
