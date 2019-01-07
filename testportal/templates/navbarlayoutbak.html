@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="p-3 mb-3 rounded">
+       <img class="mx-image mx-name-image1" style="width: 191px; cursor: pointer;" src="https://nndeelnemersportaal-deelnemerportaalnn.cert.cfapps.eu10.hana.ondemand.com/img/Atlas_UI_Resources$logo_nn.png?636797026212538030">
+    </div>
+
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-left">
+          <a class="p-2 text-dark" href="#">Home</a>
+          <a class="p-2 text-dark" href="#">My profile</a>
+          <a class="p-2 text-dark" href="#">Investments</a>
+          <a class="p-2 text-dark" href="#">Sign out</a>
+        </nav>
+      </div>
+    <div class="container body-content">
+        {% block content %}{% endblock %}
+        <hr />
+        <footer>
+            <p>&copy; {{ year }} - Testportal voor NN casus</p>
+        </footer>
+    </div>
+</body>
+</html>

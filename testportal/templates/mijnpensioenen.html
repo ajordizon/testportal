@@ -1,0 +1,370 @@
+{% extends 'navbarlayout.html' %}
+{% block content %}
+<head></head>
+<style>
+.hero-image {
+    background-image: url("../static/pageheader-default.jpg");
+    height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:0% 14%;
+    }
+
+    .hero-text {
+    text-align: left;
+    top: 60%;
+    left: 50%;
+    color: #EA650D;
+    }
+
+    /*h2 {
+    color: #EA650D;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: justify;*/
+    }
+
+    .h4 {
+    color: #EA650D;
+    }
+/* BUTTONS */
+        .button {
+        background-color: #EA650D; /* Orange */
+        border: none;
+        border-radius: 4px;
+        color: white;
+        padding: 14px;
+        text-align: left;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 8px;
+        cursor: pointer;
+        width: 100%;
+        }
+        .button2{position:center;margin:auto;margin-bottom:0%;}
+        .button3{ width:auto;padding:6px;text-align:center;}
+
+/* MODAL WINDOW */
+        .modal-window {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          top: 0px;
+          left:0px;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+          top: -120px; /* Positie modal window */
+          left: 0px;
+          background-color: #fefefe;
+          margin: 15% auto; /* 15% from the top and centered */
+          padding: 30px;
+          padding-top:20px;
+          border: none;
+          -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+          -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+          -webkit-background-clip: padding-box;
+          -moz-background-clip: padding-box;
+          background-clip: padding-box;
+          width: 33%; /* Could be more or less, depending on screen size */
+        }
+        /* Buttons */
+        .close {
+          color: #EA650D;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        .tab{
+            display:none;
+        }
+</style>
+</head>
+<div class="jumbotron p-3 p-md-5 rounded bg-dark hero-image hero-text">
+    <h1 style=" color: #EA650D; font-size:50px">My other pensions</h1>
+</div>
+
+ <!-- The Modal HTML -->
+
+        <div id="myModal" class="modal-window">
+
+        <!-- Modal content -->
+            <div class="modal-content">
+                <div>
+
+
+                  <span class="close">&times;</span>
+                  <h3 class="mb-0 header">Type of Pension Selection</h3><br>
+                <select class="select1">
+                    <option class="main" selected disabled hidden>Choose type of pension</option>
+                    <option class="main" value="netto">Net Pension</option>
+                    <option class="main" value="gross">Gross Pension</option>
+                </select>
+                    </div>
+                <div class="netto box main"><strong>Add Net Pension</strong>
+                <p>Use the details in your most recent UPS or another statement in order to add pension, or see Mijnpensioenoverzicht.nl. If you want to add more than one pension, after saving select ‘Add pension manually’ again.
+                <br>
+                <br>Description:</p>
+                <input type="pensiondescription" class="form-control" id="pensiondescr" placeholder="Pension Description"><br>
+                For:
+                <br>
+                <input type="radio" name="person" value="participant"> Participant
+                <input type="radio" name="person" value="partner"> Partner<br><br>
+                An amount in € of:
+                <input type="amtperyear" class="form-control" id="amtperyear" size="12" placeholder="0.00">Net per year<br>
+                <br>I will receive from:
+                <br>
+                <select name="netage">
+                  <option value="choose">Choose age..</option>
+                  <option value="65">65</option>
+                  <option value="66">66</option>
+                  <option value="67">67</option>
+                  <option value="68">68</option>
+                </select>
+                <select name="netmonths">
+                  <option value="choosem">Months..</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+                <br>
+                <br>
+                <button class="btn" onclick="myReturn()">Return</button>
+                <button class="btn" id="Btnsubmit">Submit</button>
+                </form></div>
+                <div class="gross box main"><strong>Add Gross Pension</strong>
+                <p>Use the details in your most recent UPS or another statement in order to add pension, or see Mijnpensioenoverzicht.nl. If you want to add more than one pension, after saving select ‘Add pension manually’ again.
+                <br>
+                <br>
+                Description:</p>
+                <input type="pensiondescription" class="form-control" id="pensiondescr" placeholder="Pension Description"><br>
+                For:
+                <br>
+                <input type="radio" name="person" value="participant"> Participant
+                <input type="radio" name="person" value="partner"> Partner<br><br>
+                An amount in € of:
+                <input type="amtperyear" class="form-control" id="amtperyear" size="12" placeholder="0.00">Net per year<br>
+                <br>I will receive from:
+                <br>
+                <select name="grossage">
+                  <option value="gross">Choose age..</option>
+                  <option value="gross">65</option>
+                  <option value="gross">66</option>
+                  <option value="gross">67</option>
+                  <option value="gross">68</option>
+                </select>
+                <select name="grossmonths">
+                  <option value="choosem">Months..</option>
+                  <option value="gross">1</option>
+                  <option value="gross">2</option>
+                  <option value="gross">3</option>
+                  <option value="gross">4</option>
+                  <option value="gross">5</option>
+                  <option value="gross">6</option>
+                  <option value="gross">7</option>
+                  <option value="gross">8</option>
+                  <option value="gross">9</option>
+                  <option value="gross">10</option>
+                  <option value="gross">11</option>
+                  <option value="gross">12</option>
+                </select>
+                  <br><br>During the following period:
+                  <br>
+                <select>
+                    <option class="subselect" value="choose">Choose period</option>
+                    <option class="subselect" value="forlife">For Life</option>
+                    <option class="subselect" value="uptoageof">Up to the age of</option>
+                </select><br>
+                <div class="forlife box2">You have selected <strong>For Life</strong></div>
+                <div class="uptoageof box2">You have selected <strong>Up to the age of</strong>
+                <br>End Age: <select>
+                    <option class="subselect" value="choose">Choose period</option>
+                </select>Years
+                <select>
+                    <option class="subselect" value="choose">Choose period</option>
+                </select>Months</div>
+
+                <br>
+                <button class="btn" onclick="myReturn()">Return</button>
+                <button class="btn" id="showselection2">Submit</button>
+                </form>
+                </div>
+
+
+            </div>
+
+        </div>
+
+<div class="container-fluid">
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-white">
+    <li class="breadcrumb-item"><a href="#">Individual</p></a></li>
+    <li class="breadcrumb-item"><a href="#">Pension</a></li>
+     <li class="breadcrumb-item"><a href="/mijnprofiel">Profile</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Pension Services Online</li>
+  </ol>
+</nav>
+            <div class="col">
+         <div class="card-deck mb-4">
+          <div class="card text-dark rounded" style="border:0px;">
+            <p class="card-text textblok">You will find here your personal and financial data that are important for your pension and your total income for later. Click on the items in the menu to view your
+            view or modify data. You can also fill in your desired income from the moment you retire. So you can see how you will be there later for state.</p>
+            </div>
+         </div>
+        </div>
+
+      <div class="w-100"></div>
+    <div class="col">
+     <div class="card-deck mb-4" style="height: 300px;">
+        <div class="card text-dark rounded" style="background-color: #f1edeb;border:0px;">
+            <div class="card-body">
+            <h3 class=" Header">My pensions</h3>
+            <table style="width:100%">
+                <th>Uitvoerder</th><th>Polisnummer</th><th>Bruto</th><th>Begin</th><th>Eind</th>
+                {{pensioenen_gebruiker|safe}}
+            </table>
+            </div>
+            <div class="card-footer w-100" style="position:absolute; bottom:0;">
+            <a class="text-dark" style="font-size:15px" href="#"id="trigger"><b><span class="glyphicon glyphicon-plus-sign" style="color:#EA650D"></span>Add pension</b></a>
+            <br>
+            <span class="glyphicon glyphicon-plus-sign" style="color:#EA650D"></span>
+            <a class="text-dark" style="font-size:15px" href="#"><b>Import from XML</b></a>
+            <br>
+            <a class="button button3" href="/" style:"align-right">Back to home</a>
+            </div>
+            </div>
+        </div>
+     </div>
+
+ <!------------------------------->
+<!--Bootstrap script voor glyphicons-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+ <!-- MODAL SCRIPT -->
+   <script>
+
+        var modal = document.getElementById('myModal');
+
+        var span = document.getElementsByClassName("close")[0];
+
+        window.onclick = function(event){
+            if (event.target == modal) {
+                modal.style.display = "none";
+                }
+            }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                }
+            }
+        span.onclick= function(event) {
+            myModal.style.display = "none";
+
+        }
+        span.click= function(event) {
+            myModal.style.display = "none";
+        }
+
+        window.click = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                }
+            }
+
+
+    </script>
+<!------------------------------>
+<!---------dropdown hide and show------->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("select").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+            var optionClass = $(this).attr("class");
+
+            if (optionClass == "main"){
+                if(optionValue){
+                    if(optionValue){
+                        $(".box").not("." + optionValue).hide();
+                        $(".select1").hide();
+                    }
+                    $("." + optionValue).show();
+                }
+                else{
+                    $(".box").hide();
+                    $(".box2").hide();
+                }
+            }
+            else if(optionClass == "subselect"){
+                    if(optionValue){
+                        $(".box2").not("." + optionValue).hide();
+                        $("." + optionValue).show();
+                    }
+                    else{
+                    $(".box2").hide();
+                        }
+                }
+        });
+    }).change();
+});
+</script>
+<!------------------------------>
+<!-- modal on link click -->
+<script>
+$(function(){
+        $('#trigger').click(function(){
+         modal.style.display = "block";
+        })
+
+        });
+</script>
+<!---- oudid return select
+<script>$(function(){
+    $('#showselection').click(function(){
+         $(".select1").show();
+         $(".box").hide();
+         $(".box2").hide();
+        })
+    });
+</script>
+->
+<!---- als return knop gedrukt word hide boxes met invulvelden en show selections--->
+<script>
+function myReturn() {
+    $(".select1").show();
+    $(".box").hide();
+    $(".box2").hide();
+}
+</script>
+<!--------------------------->
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'navbarlayout.html' %}
+{% block content %}
+
+<head>
+    <style>
+    .hero-image {
+    background-image: url("../static/pageheader-default.jpg");
+    height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:0% 14%;
+    }
+
+    .hero-text {
+    text-align: left;
+    top: 60%;
+    left: 50%;
+    color: #EA650D;
+    }
+
+    /*h2 {
+        color: #EA650D;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: justify;*/
+    }
+
+    h4 {
+        color: #EA650D;
+    }
+
+    .button {
+    background-color: #EA650D; /* Orange */
+    border: none;
+    color: white;
+    padding: 14px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 8px;
+    cursor: pointer;
+    width: 100%;
+    }
+    .button {border-radius: 4px;} /* Green */
+    .button2 {border-radius: 4px;} /* Blue */
+    .button3 {border-radius: 4px;}  /* Red */
+    .button4 {border-radius: 4px;}  /* Gray */
+    .button5 {border-radius: 4px;}  /* Black */
+
+    /*a {
+        color: black;
+        font-size: 15px;
+        text-decoration: underline;*/
+    }
+    </style>
+</head>
+
+<div class="jumbotron p-3 p-md-5 rounded bg-dark hero-image hero-text">
+    <h1 style=" color: #EA650D; font-size:50px">Welcome <br>{{session['naam']}}</h1>
+</div>
+
+<div class="nav-scroller2 py-1 mb-2">
+    <nav class="nav d-flex justify-content-left">
+      <a class="p-2 text-dark" href="#">Individual /</a>
+      <a class="p-2 text-dark" href="mijnpensioenen">Pension /</a>
+      <a class="p-2 text-dark" href="#">Pension Services Online</a>
+    </nav>
+</div>
+
+<div>
+    <h2 style="color: #EA650D; font-size: 30px; font-weight: bold;">Other income</h2>
+    <!--<span class="glyphicon glyphicon-tasks" style="color:#EA650D"></span>-->
+    <!--<a style="color: black; font-size: 12px" href="#">See all ages</a>-->
+</div>
+
+<div>
+    <table style="width:100%">
+        <th>Description</th><th>Amount</th><th>Age of entry</th>
+    </table>
+</div>
+<br>
+<br>
+
+<div class="col">
+    <span class="glyphicon glyphicon-plus-sign" style="color:#EA650D"></span>
+    <a class="text-dark" style="font-size:15px" href="#"><b>Add income</b></a>
+    <button onclick="window.location.href='/'" class="btn-icon-right btn btn-outline-light" style="background-color: #EA650D; text-align: left; border:0px; float: right;" type="submit"><b>Cancel </b>
+    <span class="glyphicon glyphicon-chevron-right pull-right" style="color: white"></span></button>
+</div>
+<br>
+
+<footer class="blog-footer">
+    <a href="#">Back to top</a>
+</footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--Bootstrap script voor glyphicons-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--ends here-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+   </script>
+
+{% endblock %}

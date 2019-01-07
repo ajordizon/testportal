@@ -1,0 +1,39 @@
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'scenarios')">Scenarios</button>
+  <button class="tablinks" onclick="openCity(event, 'totalIncome')">Total Income Graph</button>
+  <button class="tablinks" onclick="openCity(event, 'netGraph')">Net Graph</button>
+</div>
+
+<div id="scenarios" class="tabcontent">
+<button id="addScenario"><span class="glyphicon glyphicon-plus-sign" style="color:#EA650D"></span>Add Scenario</button>
+</div>
+
+<div id="totalIncome" class="tabcontent">
+<canvas id="c"width="800" height="450"></canvas>
+</div>
+
+
+<div id="netGraph" class="tabcontent">
+
+<canvas id="line-chart" width="800" height="450"></canvas>
+</div>
+
+  <script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>

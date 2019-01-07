@@ -1,0 +1,196 @@
+{% extends 'navbarlayout.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+
+<head>
+    <style>
+        .bgimg{
+            background-image: url("../static/pageheader-default.jpg");
+            background-position: 0% 24%;
+            height:300px;
+            background-size:cover;
+            background-size: 100%;
+            background-repeat:no-repeat;
+        }
+        .Header{
+            color: #EA650D;
+            font-weight:bold;
+            font-size:24px;
+        }
+        .textblok{
+            font-size:14px;
+        }
+
+        /* TABLES */
+
+        table#example {
+        border-collapse: collapse;
+        width: 100%;
+        }
+        #example tr {
+        background-color: #eee;
+        border-top: 1px solid #fff;
+        }
+        #example tr:hover {
+        background-color: #ccc;
+        }
+        #example th {
+        background-color: #fff;
+        font-size:14px;
+        font-weight: normal;
+        }
+        #example th, #example td {
+        padding: 3px 5px;
+        }
+        #example td:hover {
+        cursor: pointer;
+        }
+        #example .active{
+           background-color: #ccc;
+        }
+    /* BUTTONS */
+            .button {
+            background-color: #EA650D; /* Orange */
+            border: none;
+            border-radius: 4px;
+            color: white;
+            padding: 14px;
+            text-align: left;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 8px;
+            cursor: pointer;
+            width: 100%;
+            }
+            .button2{position:center;margin:auto;margin-bottom:0%;}
+            .button3{ width:auto;padding:6px;text-align:center;}
+
+    </style>
+</head>
+
+<div class="container-fluid">
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-white">
+    <li class="breadcrumb-item"><a href="#">Individual</p></a></li>
+    <li class="breadcrumb-item"><a href="mijnpensioenen">Pension</a></li>
+    <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+  </ol>
+</nav>
+            <div class="col">
+         <div class="card-deck mb-4">
+          <div class="card text-dark border border-dark rounded" style="border:0px;">
+            <p class="card-text textblok p-2">You will find here your personal and financial data that are important for your pension and your total income for later. Click on the items in the menu to view your
+            view or modify data. You can also fill in your desired income from the moment you retire. So you can see how you will be there later for state.</p>
+            </div>
+         </div>
+        </div>
+
+        <div class="col">
+         <div class="card-deck mb-3">
+          <div class="card text-dark rounded textblok p-2" style="background-color: #f1edeb;border:0px;">
+            The information you add in mijn.nn and Pensioen Services Online is only used to make a calculation. We do not use these for commercial purposes. We do not pass on your details to other organizations.
+          </div>
+         </div>
+        </div>
+      <div class="w-100"></div>
+    <div class="col">
+     <div class="card-deck mb-4" style="height: 300px;">
+        <div class="card text-dark rounded" style="background-color: #f1edeb;border:0px;">
+            <div class="card-body">
+            <h3 class=" Header">My personal data</h3>
+
+            <p class="card-text textblok">Name:           {{session['naam']|safe}}</p>
+            <p class="card-text textblok">Date of birth:  {{session['dob']|safe}}</p>
+            <p class="card-text textblok">Gross income: €{{session['salaris']|safe}}</p>
+            <p class="card-text textblok">Partner:        {{session['partner']|safe}}</p>
+            </div>
+            <div class="card-footer w-100" style="position:absolute; bottom:0;">
+            <button onclick="window.location.href='/editdetails'" class="button button2" type="submit">Check or change your pension details</button>
+            </div>
+        </div>
+
+        <div class="card text-dark rounded"  style="background-color: #f1edeb;border:0px;">
+            <div class="card-body">
+            <h5 class="card-title Header">What does My Profile consist of?</h5>
+            <p class="card-text textblok">Based on your completed data, your profile is filled for 75%</p>
+
+            <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            </div>
+            </div>
+            <div class="card-footer w-100" style="position:absolute; bottom:0;">
+            <button onclick="window.location.href='/profilebuildup'" class="button button2" style="background-color: #EA650D;border:0px;" type="submit">How do you complete your profile?</button>
+            </div>
+        </div>
+     </div>
+    </div>
+    <div class="col">
+     <div class="card-deck mb-4" style="height: 300px;">
+        <div class="card text-dark rounded"  style="background-color: #f1edeb;border:0px;">
+            <div class="card-body">
+            <h5 class="card-title Header">My pensions</h5>
+            <p class="card-text textblok"><table id="example" style="width:100%">
+                <th>Uitvoerder</th><th>Bruto</th>
+                {{pensioen_overzicht|safe}}
+            </table></p>
+            </div>
+            <div class="card-footer w-100" style="position:absolute; bottom:0;">
+            <button onclick="window.location.href='/mijnpensioenen'" class="button button2" style="background-color: #EA650D;border:0px;" type="submit">View or add all your pensions</button>
+            </div>
+        </div>
+
+        <div class="card text-dark rounded" style="background-color: #f1edeb;border:0px;">
+            <div class="card-body">
+            <h5 class="card-title Header">My Stocks</h5>
+            <p class="card-text textblok"><p class="card-text textblok"><table id="example">
+        <tr>
+            <th>Policy number</th>
+            <th>Pension salary</th>
+            <th>Investment percentage</th>
+        </tr>
+        <tr>
+            <td>{{session['polisnummer']}}</td>
+            <td>{{session['inkomen']}}</td>
+            <td>{{session['investment_percentage']}}</td>
+        </tr>
+
+        </table></p></p>
+            </div>
+            <div class="card-footer w-100" style="position:absolute; bottom:0;">
+            <button class="button button2" onclick="window.location.href='/investment'" style="background-color: #EA650D;border:0px;" type="submit">View your investment method and risk profile</button>
+
+            </div>
+        </div>
+     </div>
+    </div>
+
+    <div class="col">
+     <div class="card-deck mb-4" style="height: 300px;">
+        <div class="card text-dark rounded" style="background-color:#f1edeb;border:0px;">
+            <div class="card-body">
+            <h5 class="card-title Header">My other income for later</h5>
+            </div>
+            <div class="card-footer w-100" style="position:absolute; bottom:0;">
+            <button class="button button2" onclick="window.location.href='/anderinkomen'" style="background-color: #EA650D;border:0px;" type="submit">Income</button>
+            </div>
+        </div>
+
+        <div class="card text-dark rounded" style="background-color:#f1edeb;border:0px;">
+            <div class="card-body">
+            <h5 class="card-title Header">My desired income for later</h5>
+            <p class="card-text textblok">My bruto income € {{session['inkomen']|safe}}<br>
+            My expected expenses € {{session['uitgaven']|safe}}<br>
+            Net per month:  € {{session['som']|safe}}</p>
+            </div>
+            <div class="card-footer w-100" style="position:absolute; bottom:0;">
+            <button class="button button2"  type="submit">Change your desired income for later</button>
+            </div>
+        </div>
+     </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
