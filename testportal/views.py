@@ -1,7 +1,7 @@
 from flask import *
 from flask_login import current_user, login_required, LoginManager, login_user, logout_user
 from flask import request
-from models import User, Comment, Persoongegevens, Pensioengegevens, Pensioenen
+from models import User, Comment, Persoongegevens, Pensioengegevens, Pensioenen, Scenarios
 from server import app, db
 import views_my_pension
 
@@ -53,6 +53,7 @@ def index():
         polis_nummer = db.session.query(Pensioenen).filter_by(pensioen_id = id).first().polisnummer
         investment = db.session.query(Pensioenen).filter_by(pensioen_id = id).first().investment_percentage
 
+
         som = inkomen - uitgaven
         shortsur = "earnings"
         if som < 0:
@@ -62,7 +63,7 @@ def index():
         elif leeftijd_pensioen_maand == 1:
             leeftijd_pensioen = "" + str(leeftijd_pensioen_jaar) + " years and 1 month"
         else:
-            leeftijd_pensioen = "" + str(leeftijd_pensioen_jaar) + " years and " + leeftijd_pensioen_maand + " months"
+            leeftijd_pensioen = "" + str(leeftijd_pensioen_jaar) + " years and " + str(leeftijd_pensioen_maand) + " months"
 
 
         session['naam'] = str(persoonnaam) + " " + str(persoontsvs) + " " + str(persoonachter)
@@ -79,25 +80,20 @@ def index():
         session['polisnummer'] = str(polis_nummer)
         session['investment_percentage'] = str(investment)
 
-        return render_template("index.html", comments=Comment.query.all(), session = session)
-
-
-    comment = Comment(content=request.form["contents"], commenter=current_user)
-    db.session.add(comment)
-    db.session.commit()
+        return render_template("index.html", session = session)
     return redirect(url_for('index'))
 
 @app.route("/anderepensioenen")
 def anderepensioenen():
-    #if not current_user.is_authenticated:
-    #    return redirect(url_for('login'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
 
     return render_template("anderepensioenen.html")
 
 @app.route("/anderinkomen")
 def anderinkomen():
-    #if not current_user.is_authenticated:
-    #    return redirect(url_for('login'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
 
     return render_template("anderinkomen.html")
 
@@ -155,15 +151,33 @@ def profilebuildup():
         return redirect(url_for('login'))
     return render_template("profilebuildup.html")
 
-
-
 @app.route("/scenarios")
 def scenarios():
-    return render_template("scenarios.html")
+#    id = db.session.query(User).filter_by(username = current_user.username).first().id
+#    scenarios = db.session.query(Scenarios)
+#    jaar = db.session.query(Scenarios).filter_by(scenario_id = id).first().pensioen_jaar
+#    maand = db.session.query(Scenarios).filter_by(scenario_id = id).first().pensioen_maand
 
-@app.route("/scenariostest")
+#    if maand != None:
+#            session['scenarios_jaar'] = str(jaar)
+#            session['scenarios_maand'] = str(maand)
+
+#    scenarios_overzicht = ""
+#    for i in scenarios:
+       #     scenarios_overzicht += "<tr>" + \'
+
+    return render_template("scenarios.html") #, scenarios_overzicht = scenarios_overzicht)
+
+@app.route("/scenariostest", methods=["GET","POST"])
 def scenariostest():
-    return render_template("scenariostest.html")
+    if request.method == "POST":
+        pensioen_jaar= request.form['pension_year']
+        pensioen_maand = request.form['pension_months']
+        scenario_id = db.session.query(User).filter_by(username = current_user.username).first().id
+        scenario = Scenarios(scenario_id,pensioen_jaar, pensioen_maand)
+        db.session.add(scenario)
+        db.session.commit()
+    return render_template("scenarios.html")
 
 @app.route("/investment")
 def investment():
@@ -181,4 +195,18 @@ def createall():
 def logout():
     logout_user()
     session['logged_in'] = False
+    session.pop('som', None)
+    session.pop('dob', None)
+    session.pop('partner', None)
+    session.pop('salaris', None)
+    session.pop('leeftijd_pensioen', None)
+    session.pop('leeftijd_pensioen_jaar', None)
+    session.pop('leeftijd_pensioen_maand', None)
+    session.pop('inkomen', None)
+    session.pop('uitgaven', None)
+    session.pop('shortsur', None)
+    session.pop('polisnummer', None)
+    session.pop('investment_percentage', None)
+    session.pop('scenarios_jaar', None)
+    session.pop('scenarios_maand', None)
     return redirect(url_for('index'))

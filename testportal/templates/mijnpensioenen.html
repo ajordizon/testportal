@@ -1,4 +1,6 @@
 {% extends 'navbarlayout.html' %}
+{% block title %}My other pensions{% endblock %}
+
 {% block content %}
 <head></head>
 <style>
@@ -95,7 +97,7 @@
 </style>
 </head>
 <div class="jumbotron p-3 p-md-5 rounded bg-dark hero-image hero-text">
-    <h1 style=" color: #EA650D; font-size:50px">My other pensions</h1>
+    <h1 style=" color: #EA650D; font-size:50px">My Planner</h1>
 </div>
 
  <!-- The Modal HTML -->
@@ -108,14 +110,14 @@
 
 
                   <span class="close">&times;</span>
-                  <h3 class="mb-0 header">Type of Pension Selection</h3><br>
-                <select class="select1">
+                  <h3 class="mb-0 header" style="color: #EA650D; font-size:20px">Add pension</h3><br>
+                <select class="select1" style="border:1px solid #EA650D">
                     <option class="main" selected disabled hidden>Choose type of pension</option>
                     <option class="main" value="netto">Net Pension</option>
                     <option class="main" value="gross">Gross Pension</option>
                 </select>
                     </div>
-                <div class="netto box main"><strong>Add Net Pension</strong>
+                <div class="netto box main"><strong></strong>
                 <p>Use the details in your most recent UPS or another statement in order to add pension, or see Mijnpensioenoverzicht.nl. If you want to add more than one pension, after saving select ‘Add pension manually’ again.
                 <br>
                 <br>Description:</p>
@@ -152,10 +154,10 @@
                 </select>
                 <br>
                 <br>
-                <button class="btn" onclick="myReturn()">Return</button>
-                <button class="btn" id="Btnsubmit">Submit</button>
+                <button class="btn" onclick="myReturn()" style="border-color: #EA650D; color: #EA650D; background-color: white"><b>Cancel</b></button>
+                <button class="btn" id="Btnsubmit" style="color: white; background-color: #EA650D; float: right"><b>Save</b></button>
                 </form></div>
-                <div class="gross box main"><strong>Add Gross Pension</strong>
+                <div class="gross box main"><strong></strong>
                 <p>Use the details in your most recent UPS or another statement in order to add pension, or see Mijnpensioenoverzicht.nl. If you want to add more than one pension, after saving select ‘Add pension manually’ again.
                 <br>
                 <br>
@@ -208,8 +210,8 @@
                 </select>Months</div>
 
                 <br>
-                <button class="btn" onclick="myReturn()">Return</button>
-                <button class="btn" id="showselection2">Submit</button>
+                <button class="btn" onclick="myReturn()" style="border-color: #EA650D; color: #EA650D; background-color: white"><b>Cancel</b></button>
+                <button class="btn" id="showselection2" style="color: white; background-color: #EA650D; float: right"><b>Save</b></button>
                 </form>
                 </div>
 
@@ -221,10 +223,10 @@
 <div class="container-fluid">
     <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-white">
-    <li class="breadcrumb-item"><a href="#">Individual</p></a></li>
-    <li class="breadcrumb-item"><a href="#">Pension</a></li>
-     <li class="breadcrumb-item"><a href="/mijnprofiel">Profile</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Pension Services Online</li>
+    <li class="breadcrumb-item p-2 text-dark"><a href="#">Individual</a></li>
+    <!--<li class="breadcrumb-item"><a href="#">Pension</a></li>-->
+    <li class="breadcrumb-item p-2 text-dark"><a href="/mijnprofiel">Profile</a></li>
+    <li class="breadcrumb-item p-2 text-dark"><a href="#">Pension Services Online</li></a>
   </ol>
 </nav>
             <div class="col">
@@ -241,7 +243,7 @@
      <div class="card-deck mb-4" style="height: 300px;">
         <div class="card text-dark rounded" style="background-color: #f1edeb;border:0px;">
             <div class="card-body">
-            <h3 class=" Header">My pensions</h3>
+            <h3 class=" Header" style="color: #EA650D; font-size:25px"><b>My pensions</b></h3>
             <table style="width:100%">
                 <th>Uitvoerder</th><th>Polisnummer</th><th>Bruto</th><th>Begin</th><th>Eind</th>
                 {{pensioenen_gebruiker|safe}}
@@ -253,7 +255,8 @@
             <span class="glyphicon glyphicon-plus-sign" style="color:#EA650D"></span>
             <a class="text-dark" style="font-size:15px" href="#"><b>Import from XML</b></a>
             <br>
-            <a class="button button3" href="/" style:"align-right">Back to home</a>
+            <button onclick="window.location.href='/'" class="btn-icon-right btn btn-outline-light" style="background-color: #EA650D; text-align: left; border:0px; float: right;" type="submit"><b>Back to home </b>
+            <span class="glyphicon glyphicon-chevron-right pull-right" style="color: white"></span></button>
             </div>
             </div>
         </div>

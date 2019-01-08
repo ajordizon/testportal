@@ -115,7 +115,7 @@
 
         /* Buttons */
         .close {
-          color: #EA650D;
+          /*color: #EA650D;*/
           float: right;
           font-size: 28px;
           font-weight: bold;
@@ -136,13 +136,11 @@
 </head>
 
  <!-- The Modal HTML -->
-
         <div id="myModal" class="modal-window">
-
         <!-- Modal content -->
             <div class="modal-content">
                 <div>
-                  <span class="close">&times;</span>
+                  <span class="close" style="color: #EA650D">&times;</span>
                   <h3 class="mb-0 header" style="color: #EA650D; font-size:20px"><b>Add pension</b></h3><br>
                 <select class="select1" style="border:1px solid #EA650D">
                     <option class="main" selected disabled hidden>Choose type of pension</option>
@@ -150,27 +148,29 @@
                     <option class="main" value="gross">Gross Pension</option>
                 </select>
                     </div>
-                <div class="netto box main"><strong>Add Net Pension</strong>
+                <div class="netto box main"><strong></strong>
                 <p>Use the details in your most recent UPS or another statement in order to add pension, or see Mijnpensioenoverzicht.nl. If you want to add more than one pension, after saving select ‘Add pension manually’ again.
                 <br>
                 <br>Description:</p>
                 <input type="pensiondescription" class="form-control" id="pensiondescr" placeholder="Pension Description"><br>
                 For:
                 <br>
-                <input type="radio" name="person" value="participant"> Participant
-                <input type="radio" name="person" value="partner"> Partner<br><br>
+                <label class="radio-inline">
+                    <input type="radio" name="person" value="participant"> Participant</label>
+                <label class="radio-inline">
+                    <input type="radio" name="person" value="partner"> Partner</label><br><br>
                 An amount in € of:
                 <input type="amtperyear" class="form-control" id="amtperyear" size="12" placeholder="0.00">Net per year<br>
                 <br>I will receive from:
                 <br>
-                <select name="netage">
+                <select name="netage" style="width: 110px;">
                   <option value="choose">Choose age..</option>
                   <option value="65">65</option>
                   <option value="66">66</option>
                   <option value="67">67</option>
                   <option value="68">68</option>
                 </select>
-                <select name="netmonths">
+                <select name="netmonths" style="width: 110px">
                   <option value="choosem">Months..</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -187,10 +187,10 @@
                 </select>
                 <br>
                 <br>
-                <button class="btn" onclick="myReturn()">Return</button>
-                <button class="btn" id="Btnsubmit">Submit</button>
+                <button class="btn" onclick="myReturn()" style="border-color: #EA650D; color: #EA650D; background-color: white"><b>Cancel</b></button>
+                <button class="btn" id="Btnsubmit" style="color: white; background-color: #EA650D; float: right"><b>Save</b></button>
                 </form></div>
-                <div class="gross box main"><strong>Add Gross Pension</strong>
+                <div class="gross box main"><strong></strong>
                 <p>Use the details in your most recent UPS or another statement in order to add pension, or see Mijnpensioenoverzicht.nl. If you want to add more than one pension, after saving select ‘Add pension manually’ again.
                 <br>
                 <br>
@@ -198,8 +198,10 @@
                 <input type="pensiondescription" class="form-control" id="pensiondescr" placeholder="Pension Description"><br>
                 For:
                 <br>
-                <input type="radio" name="person" value="participant"> Participant
-                <input type="radio" name="person" value="partner"> Partner<br><br>
+                <label class="radio-inline">
+                    <input type="radio" name="person" value="participant"> Participant</label>
+                <label class="radio-inline">
+                    <input type="radio" name="person" value="partner"> Partner</label><br><br>
                 An amount in € of:
                 <input type="amtperyear" class="form-control" id="amtperyear" size="12" placeholder="0.00">Net per year<br>
                 <br>I will receive from:
@@ -226,13 +228,14 @@
                   <option value="gross">11</option>
                   <option value="gross">12</option>
                 </select>
-                  <br><br>During the following period:
+                <br><br>During the following period:
                   <br>
                 <select>
                     <option class="subselect" value="choose">Choose period</option>
                     <option class="subselect" value="forlife">For Life</option>
                     <option class="subselect" value="uptoageof">Up to the age of</option>
                 </select><br>
+                <br>
                 <div class="forlife box2">You have selected <strong>For Life</strong></div>
                 <div class="uptoageof box2">You have selected <strong>Up to the age of</strong>
                 <br>End Age: <select>
@@ -241,30 +244,20 @@
                 <select>
                     <option class="subselect" value="choose">Choose period</option>
                 </select>Months</div>
-
                 <br>
-                <button class="btn" onclick="myReturn()" style="color: white; background-color: #EA650D" >Return</button>
-                <button class="btn" id="showselection2" style="color: white; background-color: #EA650D" >Submit</button>
+                <br>
+                <button class="btn" onclick="myReturn()" style="border-color: #EA650D; color: #EA650D; background-color: white" ><b>Cancel</b></button>
+                <button class="btn" id="showselection2" style="color: white; background-color: #EA650D; float: right" ><b>Save</b></button>
                 </form>
                 </div>
-
-
             </div>
-
         </div>
         <!--end of Modal myModal-->
 
         <!--the start of Modal dataModal-->
-        <div id="dataModal" class="modal-window">
+
         <!-- Modal content -->
-            <div class="modal-content">
-                <form>
-                  <span class="close dataModal">&times;</span>
-                  <h3 class="mb-0 header">Information</h3><br>
-                No selection available
-                </form>
-            </div>
-        </div>
+
         <!--end of modal dataModal-->
 
 <!--------end of the modals----->
@@ -283,9 +276,13 @@
 
 <div class="p-3 mb-3 rounded">
     <h2 style="color: #EA650D; font-size: 30px; font-weight: bold;">My {{session['shortsur']}} at the age of {{session['leeftijd_pensioen']}}</h2>
-        <span class="glyphicon glyphicon-tasks" style="color:#EA650D"></span>
-        <a style="color: #EA650D; font-size: 12px" href="#">See all ages</a>
+
+<div style="float: left">
+   <span class="glyphicon glyphicon-tasks" style="color:#EA650D" href="#"></span>
+   <a style="color: #EA650D; font-size: 12px" href="#">See all ages</a>
 </div>
+<br>
+<br>
 
 <div class="col">
     <div class="card-deck mb-4" style="height: 300px;">
@@ -295,7 +292,7 @@
                 <!--<p class="card-text textblok">Income: {{session['inkomen']}}<br>Expenses: {{session['uitgaven']}}</p>-->
                 <h5 style="font-size:20px; text-align: right"><b>Net per month <br> € {{session['inkomen']}}</b></h5>
                 <div style="text-align: right">
-                <a class="text-dark" style="font-size:12px; text-align: right" href="#"><u>How is this calculated?</u></a>
+                <a style="font-size:12px; text-align: right; color: #778899" href="#"><u>How is this calculated?</u></a>
                 </div>
                 <ul>
                 <a class="text-dark" style="font-size:15px" href="anderepensioenen"><u><li>My pension at Nationale-Nederlanden</u></li></a>
@@ -308,24 +305,20 @@
                 <span class="glyphicon glyphicon-plus-sign" style="color:#EA650D"></span>
                 <a class="text-dark" style="font-size:15px" id="btnData" href="#"><b>Add and manage income</b></a>
             </div>
-
-            <div class="card-footer w-100" style="position:absolute; bottom:0;">
-            <!--<button class="btn btn-primary btn-outline-light btn-block" style="background-color: #EA650D;border:0px;" type="submit">Income ></button>-->
-            </div>
         </div>
 
         <div class="card text-dark rounded" style="background-color:#f1edeb;border:0px;">
             <div class="card-body">
-            <h4 class="card-title Header" style="color: #EA650D; font-size: 25px; font-weight: bold;">How can I supplement my shortage?</h4>
-            <img class="mx-image mx-name-image1 img-responsive" style="width: 220px; height: 130px;  margin-left: auto; margin-right: auto;" src="https://nndeelnemersportaal-deelnemerportaalnn.cert.cfapps.eu10.hana.ondemand.com/img/Atlas_UI_Resources$tekorten.png?636797026212538030">
+            <h4 class="card-title Header" style="color: #EA650D; font-size: 25px; font-weight: bold;">How can I supplement my shortage?</h4><br>
+            <img class="mx-image mx-name-image1 img-responsive" style="width: 200px; height: 130px;  margin-left: auto; margin-right: auto;" src="https://nndeelnemersportaal-deelnemerportaalnn.cert.cfapps.eu10.hana.ondemand.com/img/Atlas_UI_Resources$tekorten.png?636797026212538030">
             </div>
             <div class="card-footer w-100" style="position:absolute; bottom:0;">
             <button class="btn btn-primary btn-outline-light btn-block" style="background-color: #EA650D; text-align: left; border:0px;" type="submit"><b> View your options</b>
                 <span class="glyphicon glyphicon-chevron-right pull-right" style="color: white"></span></button>
             </div>
         </div>
-     </div>
     </div>
+</div>
 
 <div class="col">
     <div class="card-deck mb-4" style="height: 300px;">
@@ -346,9 +339,6 @@
             <p align="right">Your expected total <br>expenditure net p/m</p>
             </form>
             </div>
-            <div class="card-footer w-100" style="position:absolute; bottom:0;">
-            <!--<button class="btn btn-primary btn-outline-light btn-block" style="background-color: #EA650D;border:0px;" type="submit">Income ></button>-->
-            </div>
         </div>
 
     <div class="card text-dark rounded" style="background-color:#f1edeb;border:0px;">
@@ -359,7 +349,7 @@
         <span class="glyphicon glyphicon-chevron-right pull-right" style="color: white"></span></button>
         <button class="btn btn-primary btn-outline-light btn-block" style="background-color: #EA650D; text-align: left; border:0px;" type="submit"><b>Print to pdf</b>
         <span class="glyphicon glyphicon-chevron-right pull-right" style="color: white"></span></button>
-        <button onclick="window.location.href='/'" class="btn btn-primary btn-outline-light btn-block" style="background-color: #EA650D; text-align: left; border:0px;" type="submit"><b>A higher pension</b>
+        <button onclick="window.location.href='/investment'" class="btn btn-primary btn-outline-light btn-block" style="background-color: #EA650D; text-align: left; border:0px;" type="submit"><b>A higher pension</b>
         <span class="glyphicon glyphicon-chevron-right pull-right" style="color: white"></span></button>
         <button class="btn btn-primary btn-outline-light btn-block" style="background-color: #EA650D; text-align: left; border:0px;" type="submit"><b>A more secure pension</b>
         <span class="glyphicon glyphicon-chevron-right pull-right" style="color: white"></span></button>
@@ -378,9 +368,7 @@
             <!--<p class="card-text textblok">Income: {{session['inkomen']}}<br>Expenses: {{session['uitgaven']}}</p>-->
             <h5 style="font-size:25px" align="right"><b> € {{session['som']}}</b></h5>
             </div>
-            <div class="card-footer w-100" style="position:absolute; bottom:0;">
-            <!--<button class="btn btn-primary btn-outline-light btn-block" style="background-color: #EA650D;border:0px;" type="submit">Income ></button>-->
-            </div>
+
         </div>
 
     <div class="card text-dark rounded" style="background-color:#f1edeb;border:0px;">
@@ -398,8 +386,6 @@
             </ol>
         </div>
 
-            <div class="card-footer w-100" style="position:absolute; bottom:0;">
-            </div>
         </div>
     </div>
 </div>

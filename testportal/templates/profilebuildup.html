@@ -1,4 +1,6 @@
 {% extends 'navbarlayout.html' %}
+{% block title %}Profile Buildup{% endblock %}
+
 {% block content %}
 
 <head>
@@ -75,7 +77,6 @@
   </ol>
 </nav>
 
-
         <div class="col">
          <div class="card mb-3">
           <div class="card text-dark rounded textblok" style="background-color: #f1edeb;border:0px;">
@@ -87,9 +88,9 @@
             - My desired income for later 10% </p></div>
          </div>
         </div>
+        <div>
+            <button onclick="window.location.href='/mijnprofiel'" class="btn-icon-right btn btn-outline-light" style="background-color: #EA650D; text-align: left; border:0px; float: right;" type="submit"><b>Back to my profile </b></button>
+        </div>
       <div class="w-100"></div>
-
 </div>
-
-
 {% endblock %}

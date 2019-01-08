@@ -130,11 +130,15 @@ class Scenarios(db.Model):
 
     __tablename__= "scenarios"
     id = db.Column(db.Integer, primary_key=True)
+    scenario_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     pensioen_jaar = db.Column(db.String(80))
-    bruto_per_maand = db.Column(db.Numeric(50))
+    pensioen_maand = db.Column(db.String(80))
 
-    def __init__(self, Pensioen_jaar, Pensioen_maand):
-        self.pensioen_jaar = Pensioen_jaar
-        self.pensioen_maand = Pensioen_maand
+    scenariosrel = db.relationship('User', foreign_keys=scenario_id)
+
+    def __init__(self, scenario_id, pensioen_jaar, pensioen_maand):
+        self.scenario_id = scenario_id
+        self.pensioen_jaar = pensioen_jaar
+        self.pensioen_maand = pensioen_maand
 
 

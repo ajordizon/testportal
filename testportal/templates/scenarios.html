@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+
+{% extends 'navbarlayout.html' %}
+{% block title %}Scenarios{% endblock %}
+
+{% block content %}
 <head>
     <!-- LINKS CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <meta charset="UTF-8">
-    <title>Nationale-Nederlanden</title>
 
     <style>
 
@@ -28,10 +30,10 @@
         }
 
         .header-title{
-            background:-webkit-linear-gradient(to right, blue, pink);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+            color: #EA650D;
             font-weight:bold;
+            font-size:20px;
+
         }
         .column-blocks{
             background-color:#f1edeb;
@@ -72,41 +74,41 @@
                     cursor: pointer;
                 }/* Button die alleen text weergeeft
 
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
+    /* Style the tab */
+    .tab {
+      overflow: hidden;
+      background-color: #f1f1f1;
+    }
 
-/* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
+    /* Style the buttons inside the tab */
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+    }
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      background-color: #ddd;
+    }
 
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
+    /* Create an active/current tablink class */
+    .tab button.active {
+      background-color: #ccc;
+    }
 
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
+    /* Style the tab content */
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
 
-  border-top: none;
-}
+      border-top: none;
+    }
 
 /* TABLES */
         table#example {
@@ -178,7 +180,18 @@
           text-decoration: none;
           cursor: pointer;
         }
-
+        .chart {
+          background: white;
+          width: 500px;
+          height: 100px;
+          border-left: 1px dotted #555;
+          border-bottom: 1px dotted #555;
+          padding: 20px 20px 20px 0;
+        }
+        .padding-0{
+    padding-right:0;
+    padding-left:0;
+}
 
 /* ---------------------- */
 
@@ -191,33 +204,69 @@
         mcanvas{
             background-color: #fff;
         }
+        graph .labels.x-labels {
+        text-anchor: middle;
+        }
+
+        .graph .labels.y-labels {
+          text-anchor: end;
+        }
+
+
+        .graph {
+          height: 500px;
+          width: 800px;
+        }
+
+        .graph .grid {
+          stroke: #ccc;
+          stroke-dasharray: 0;
+          stroke-width: 1;
+        }
+
+        .labels {
+          font-size: 13px;
+        }
+
+        .label-title {
+          font-weight: bold;
+          text-transform: uppercase;
+          font-size: 12px;
+          fill: black;
+        }
+
+        .data {
+          fill: red;
+          stroke-width: 1;
+        }
     </style>
 </head>
-<body onload="displayLineChart();">
+
+<body>
 
 <!-- The Modal -->
     <div id="dataModal" class="modal-window">
         <!-- Modal content -->
         <div class="modal-content">
-            <form>
+            <form action="{{ url_for('scenariostest') }} " method="post">
                 <span class="close dataModal">&times;</span>
                 <h3 class="mb-0 header">Scenario:</h3><br>
                 <div class="row">
                     <div class="col-xs-6 form-group">
                         Current situation:<br><br>
                         <b>I want to retire from:</b><br>
-                        <select style="width:50%;height:40%"class="form-control years" id="pens_years">
+                        <select name="pension_year"style="width:50%;height:40%"class="form-control years" id="pens_years">
                         </select>
                         years
                     </div>
                     <div class="col-xs-6 form-group">
-                        I will retire from:{{session['leeftijd_pensioen']}}<br><br><br>
-                        <select style="width:50%;height:40%" class="form-control months" id="pens_months">
+                        I will retire from: {{session['leeftijd_pensioen_jaar']|safe}} years and {{session['leeftijd_pensioen_maand']|safe}} months<br><br><br>
+                        <select name="pension_months" style="width:50%;height:40%" class="form-control months" id="pens_months">
                         </select>
                         months
                     </div>
                     <div class="col-md-12"><br><br>
-                        <input class="button" type="button" value=" Add " onclick="AddData()">
+                        <input class="button" type="button" onclick="AddData()" value=" Add ">
                     </div>
                 </div>
             </form>
@@ -225,29 +274,38 @@
     </div>
 
  <!------------------------------->
+
+             <!-- The Modal -->
+
+            <div id="viewModal" class="modal-window">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+            <form>
+                  <span class="close 2">&times;</span>
+                <h3 class="mb-0 header">Scenario</h3><br>
+                Click on the section you wish to view.<br>
+                <select class="customSlct" name="scenarios_made">
+                <option value="retirements">Retirement</option>
+                <option value="retirements">0.00</option>
+                </select>
+            </form>
+            </div>
+
+            </div>
+
+ <!------------------------------->
  <!--- COLUMNS -->
      <div class="container m-auto">
-        <div class="p-3 mb-3 rounded">
-           <img class="mx-image mx-name-image1 m-4" style="width: 191px; cursor: pointer;" src="https://nndeelnemersportaal-deelnemerportaalnn.cert.cfapps.eu10.hana.ondemand.com/img/Atlas_UI_Resources$logo_nn.png?636797026212538030">
-        </div>
 
-          <div class="nav-scroller py-1 mb-2 m-4">
-            <nav class="nav d-flex justify-content-left">
-              <a class="p-2 text-dark" href="/">Home</a>
-              <a class="p-2 text-dark" href="mijnprofiel">My profile</a>
-              <a class="p-2 text-dark" href="investment">Investments</a>
-              <a class="btn btn-outline-secondary ml-auto p-2" href="/login/">Sign out</a>
-            </nav>
-          </div>
     </div>
-        <div class="container body-content">
-        <div class="container">
+        <div class="container-fluid">
           <header class="blog-header py-3">
           </header>
 
           <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark bgimg">
             <div class="col-md-6 px-0">
-              <h1 class="display-4 font-italic header-title">My Planner</h1>
+              <h1 style=" color: #EA650D; font-size:50px">My Planner</h1>
             </div>
           </div>
         <div class="nav-scroller py-1 mb-2">
@@ -283,14 +341,15 @@
                      <table id="example" cellspacing="0px" cellpadding="5px" text-align="center">
                          <thead>
                         </thead>
-                    <tbody></tbody>
+                    <tbody> {{session['scenarios_overzicht']|safe}}</tbody>
                     </table></div>
 
                     <div id="totalIncome" class="tabcontent totalIncome">
-                    totalincome
+                    <img src="../static/img/picture.svg">
+
                     </div>
                     <div id="netGraph" class="tabcontent netGraph">
-                    net graph
+                    <img src="../static/img/graphic2.svg">
                     </div>
                 </div>
               </div>
@@ -298,9 +357,11 @@
             <div class="col-md-4 padding-0">
                 <div class="card flex- md-row mb-4 shadow-sm h-md-250 column-blocks">
                 <div class="card-body d-flex flex-column align-items-start ">
-                                    <div class="scenarios">test tekst Scenarios</div>
-                    <div class="totalIncome">test tekst TiG</div>
-                    <div class="netGraph">test tekst NetG</div>
+                                    <div class="scenarios"><h3 style="font-size:40px;"class="mb-0 header">&euro;0.00</h3></div>
+                    <div class="totalIncome"><h3 class="mb-0 header">Graph</h3><br>
+                    In this graph you can see al your scenarios plotted against your current situation. </div>
+                    <div class="netGraph"><h3 class="mb-0 header">Graph</h3><br>
+                    In this graph you can see al your scenarios plotted against your current situation.</div>
                 </div>
                 </div>
                 </div>
@@ -338,19 +399,23 @@
     </script>
 <!-- SCRIPT SELECT OPTION -->
     <script>
-        $(function(){
+ $(function(){
             var $select = $(".years");
+            var count1 = 40;
             for (i=40;i<=80;i++){
-                $select.append($('<option></option>').val(i).html(i))
+                $select.append($('<option value=\"' + count1 + '\"></option>').val(i).html(i))
+                count1 += 1;
             }
             var $select = $(".months");
-            for (i=0;i<=12;i++){
-                $select.append($('<option></option>').val(i).html(i))
+            var count2 = 1;
+            for (i=1;i<=12;i++){
+                $select.append($('<option value=\"' + count2 + '\"></option>').val(i).html(i))
+                count2 += 1;
             }
         });
     </script>
 <!-- SCRIPT MODAL WINDOW -->
-    <script>// Get the modal
+   <script>// Get the modal
 
 
         var modal = document.getElementById('dataModal');
@@ -364,7 +429,6 @@
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target == modal) {
-                modal.style.display = "none";
                 dataModal.style.display = "none";
                 }
             }
@@ -413,40 +477,7 @@
         });
 </script>
 <!--- SCRIPT CHARTS -->
-    <script>
-          function displayLineChart() {
-
-        var data = {
-            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            datasets: [
-                {
-                    label: "Prime and Fibonacci",
-                    fillColor: "rgba(220,220,220,0.2)",
-                    strokeColor: "rgba(220,220,220,1)",
-                    pointColor: "rgba(220,220,220,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-                },
-                {
-                    label: "My Second dataset",
-                    fillColor: "rgba(234,101,13,0.2)",
-                    strokeColor: "rgba(234,101,13,1)",
-                    backgroundColor: "#fff",
-                    pointColor: "rgba(234,101,13,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
-                    data: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-                }
-            ]
-        };
-        var ctx = document.getElementById("lineChart").getContext("2d");
-        var options = { };
-        var lineChart = new Chart(ctx).Line(data, options);
-      }
-    </script>
+<script></script>
     <!--- AD DATA -->
     <script>
         var count = 1;
@@ -459,12 +490,6 @@
         var maandtext = "";
         var items = "hello";
 
-        //if (count == 1){
-        //    items = "no items to select"
-        //}
-        //else {
-        //    items = "<h3 class=\"mb-0 header\">Information</h3>"
-        //}
         if (months<= 1){
             maandtext = "maand"
         }
@@ -473,7 +498,9 @@
         }
         rows += "<tr><td>" + "<h3 class=\"mb-0 header\">Scenario " + count + "</h3><br>"
         + years + " jaar en " + months + " " + maandtext + "</td>" + "<td>" +
-        "&emsp;&emsp;&emsp;&emsp;<button class=\"button button3\" onclick=\"deleteRow(this)\"><span class=\"glyphicon glyphicon-trash\"></span></button><button class=\"button button3\" onclick=\"editRow(this)\"><span class=\"glyphicon glyphicon-edit\"></span></button></td></tr>";
+        "&emsp;&emsp;&emsp;&emsp;<button class=\"button button3\" onclick=\"deleteRow(this)\"><span class=\"glyphicon glyphicon-trash\"></span></button>" +
+        "<button class=\"button button3\" id=\"myModal\" onclick=\"editRow(this)\"><span class=\"glyphicon glyphicon-edit\"></span></button>" +
+        "<button class=\"button button3\" id=\"viewBtn\"onclick=\"viewRow(this)\"><span class=\"glyphicon glyphicon-eye-open\"></span></button>" + "</td></tr>";
         $(rows).appendTo("#example tbody");
 
 
@@ -482,19 +509,47 @@
         }
 
         function deleteRow(r) {
+        var result = confirm("Are you sure you want to delete?");
+        if(result){
         var i = r.parentNode.parentNode.rowIndex;
         document.getElementById("example").deleteRow(i);
 
         count -= 1;
         return count;
         }
+        }
+
+        function editRow(r) {
+        var i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("example").editRow(i);
+
+        count -= 1;
+        return count;
+        }
+        function viewRow(r) {
+        var modal2 = document.getElementById("viewModal")
+        var btn = document.getElementById("viewBtn");
+        var span = document.getElementsByClassName("close 2")[0];
+
+        btn.onclick = function(){
+            modal2.style.display="block";
+        }
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal2.style.display = "none";
+
+        }
+         window.onclick = function(event) {
+            if (event.target == modal2) {
+                modal2.style.display = "none";
+                dataModal.style.display = "none";
+                }
+            }
+        }
     </script>
 
 
-        <hr />
-        <footer>
-            <p>&copy;  - Testportal voor NN casus</p>
-        </footer>
     </div>
-</body>
-</html>.
+
+{% endblock %}
+

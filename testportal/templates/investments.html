@@ -1,4 +1,6 @@
 {% extends 'navbarlayout.html' %}
+{% block title %}Investments{% endblock %}
+
 {% block content %}
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -198,20 +200,19 @@
  <!------------------------------->
  <!--- COLUMNS -->
 
-    <div class="container body-content">
-    <div class="container">
+     <div class="ccontainer-fluid">
       <header class="blog-header py-3">
       </header>
 
       <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark bgimg">
         <div class="col-md-6 px-0">
-          <h1 class="display-4 font-italic header-title">My Planner</h1>
+            <h3 style=" color: #EA650D; font-size:50px">My Planner</h3>
         </div>
       </div>
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-left">
           <a style="color:black"class="p-2 text-muted" href="#">Individual </a>
-          <a class="p-2 text-muted" href="#">Pension </a>
+          <a class="p-2 text-muted" href="/mijnpensioenen">Pension </a>
           <a class="p-2 text-muted" href="#">My Planner</a>
         </nav>
       </div>
@@ -259,10 +260,10 @@
               </h3>
               <br>
               <p class="card-text mb-auto textblok">Select the policy for which you wish to view or amend details.</p>
-              <div class="col align-self-end">
+
               <div class="row">
-              <button class="button button3">Sync SAP</button> <button id="btnData" class="button button3">View data</button></div>
-              </div>
+              &nbsp;&nbsp;<button class="button button3">Sync SAP</button> <button onclick="dataClick"id="btnData" class="button button3">View data</button></div>
+
 
              <table id="example">
         <tr>
@@ -270,7 +271,7 @@
             <th>Pension salary</th>
             <th>Investment percentage</th>
         </tr>
-        <tr>
+        <tr id="rowsel">
             <td>{{session['polisnummer']}}</td>
             <td>{{session['inkomen']}}</td>
             <td>{{session['investment_percentage']}}</td>
@@ -315,19 +316,44 @@
 
 <!-- SCRIPT TABLE -->
     <script>
+
         $(document).ready(function() {
 
         $('#example tr').click(function() {
+            var x = false;
+
+            var btn2 = document.getElementById("btnData")
+
+           btn2.onclick = function(event){
+       if(x){
+
+           alert("I am an alert box!");
+       }
+        }
+
+
             var href = $(this).find("a").attr("href");
 
             $(this).toggleClass('active').siblings().removeClass('active');
 
+           if(x){
+               return false;
+           }
+           if (!x){
+               return true;
+           }
+
             if(href) {
                 window.location = href;
             }
+
         });
 
      });
+
+    </script>
+    <script>
+
     </script>
 
 <!-- SCRIPT MODAL WINDOW -->
@@ -448,11 +474,16 @@
           x[n].className += " active";
         }
     </script>
+    <script>
+        function dataClick(){
+        var selected = document.getElementsById("example tr")
 
-
-
+        if ($(selected).hasClass("active")) {
+        alert("I am an alert box!");
+        }
+        }
+    </script>
     </div>
-
-
-
+    </div>
 {% endblock %}
+
